@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concarán Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --background: #f8fafc;
+            --text: #1e293b;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* Header y Navegación */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 4rem;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        /*************************************************************
+        *    SECCIÓN ESPECIAL: San Luis Marketplaces (estilos mejorados)
+        *************************************************************/
+        .marketplaces-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            background: linear-gradient(120deg, #FFEFBA 0%, #FFFFFF 100%);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Elementos decorativos con pseudo-elementos */
+        .marketplaces-section::before,
+        .marketplaces-section::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(37, 99, 235, 0.1);
+            z-index: 0;
+            filter: blur(30px);
+        }
+
+        .marketplaces-section::before {
+            top: -50px;
+            left: -50px;
+        }
+        .marketplaces-section::after {
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .marketplaces-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .marketplaces-section p {
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .special-button {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .special-button:hover {
+            transform: translateY(-3px);
+            background-color: #f08a00; /* Un poco más oscuro que --accent */
+        }
+        /* Grid de Publicaciones */
+        .publications-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .publication-card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .publication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .card-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-link i {
+            font-size: 1.1rem;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            margin: 2rem;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -1rem;
+            right: -1rem;
+            background: var(--white);
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: background-color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background-color: var(--gray-100);
+        }
+
+        /* Formulario de Contacto */
+        .contact-section {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .submit-button {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text);
+            color: var(--white);
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .publications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 1rem;
+            }
+        }
+
+        /* Search Container */
+        .search-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-container form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-container input[type="text"],
+        .search-container select {
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            flex: 1;
+        }
+
+        .search-container input[type="text"]:focus,
+        .search-container select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-container button[type="submit"] {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-container button[type="submit"]:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Commerce Cards */
+        .commerce-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .commerce-card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .commerce-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .commerce-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .commerce-content {
+            padding: 1.5rem;
+        }
+
+        .commerce-title {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .commerce-button {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .commerce-button:hover {
+            background-color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Concarán Market</a>
+            <div class="nav-links">
+                <a href="#publications">Publicaciones</a>
+                <a href="#contact">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Compra y vende en Concarán</h1>
+            <p>La manera más fácil de conectar compradores y vendedores en nuestra comunidad</p>
+            <a href="#contact" class="cta-button">Publicar Ahora</a>
+        </div>
+    </section>
+    <!-- Sección Especial: San Luis Marketplaces -->
+    <section id="san-luis-marketplaces" class="marketplaces-section">
+        <h2>Conoce todos los Marketplaces de San Luis</h2>
+        <p>Navega por los diferentes Marketplaces de la provincia en un solo lugar.</p>
+        <a
+            href="https://sanluismarket.github.io/San-Luis-Marketplaces/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="special-button"
+        >
+            Visitar San Luis Marketplaces
+        </a>
+    </section>
+    <!-- Sección de Comercios -->
+    <section id="comercios" class="commerce-section">
+        <h2>Comercios</h2>
+        <div class="commerce-grid">
+            <!-- Supermercado -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/264547/pexels-photo-264547.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Supermercado" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Supermercados</h3>
+                    <a href="https://tilisaraomarket.github.io/Supermercados/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Farmacia -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Farmacia" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Farmacias</h3>
+                    <a href="https://tilisaraomarket.github.io/Farmacias/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Ferretería -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/1797428/pexels-photo-1797428.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Ferretería" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Ferreterías</h3>
+                    <a href="https://tilisaraomarket.github.io/Ferreterias/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Restaurante -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Restaurante" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Restaurantes</h3>
+                    <a href="https://tilisaraomarket.github.io/Restaurantes/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Profesionales -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/3184307/pexels-photo-3184307.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    alt="Profesionales" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="Profesionales-title">Profesionales</h3>
+                    <a href="https://tilisaraomarket.github.io/Profesionales/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            
+    <!-- Web Webdev solutions -->
+    <div class="commerce-card">
+        <img src="Web Webdev solutions.jpg" 
+            alt="Rotiseria-Burghini" 
+            class="commerce-image">
+        <div class="commerce-content">
+            <h3 class="commerce-title">Web Webdev solutions</h3>
+            <a href="https://tilisaraomarket.github.io/WebDev-Solutions/" class="commerce-button">Entrar</a>
+        </div>
+    </div>
+    <!-- Search Container -->
+    <div class="search-container">
+        <form id="searchForm">
+            <input type="text" name="query" placeholder="Buscar..." required>
+            <select name="category">
+                <option value="all">Todas las Categorías</option>
+                <option value="vehiculos">Vehículos</option>
+                <option value="inmuebles">Inmuebles</option>
+                <option value="telefonos">Teléfonos</option>
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <!-- Publicaciones -->
+    <section id="publications" class="publications-grid">
+        <!-- Las publicaciones se generarán dinámicamente aquí -->
+    </section>
+
+    <!-- Formulario de Contacto -->
+    <section id="contact" class="contact-section">
+        <h2>Publicar un Producto</h2>
+        <form class="contact-form" action="https://formspree.io/f/mvgzqkpv" method="POST">
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Descripción del Producto</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Enviar</button>
+        </form>
+    </section>
+
+    <!-- Modal para imágenes -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="" alt="Imagen ampliada" class="modal-image" id="modalImage">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Concarán Market. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de ejemplo
+        const publications = [
+            {
+                title: "Toyota Corolla 2020",
+                description: "Excelente estado, único dueño, 45,000 km",
+                image: "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "vendedor@ejemplo.com",
+                whatsapp: "5491234567890",
+                category: "vehiculos"
+            },
+            {
+                title: "Casa en el Centro",
+                description: "3 dormitorios, 2 baños, garage, patio amplio",
+                image: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "inmobiliaria@ejemplo.com",
+                whatsapp: "5491234567891",
+                category: "inmuebles"
+            },
+            {
+                title: "Moto Honda CBR 600",
+                description: "2021, 12,000 km, service al día, excelente estado",
+                image: "https://images.pexels.com/photos/2393816/pexels-photo-2393816.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "motos@ejemplo.com",
+                whatsapp: "5491234567892",
+                category: "vehiculos"
+            },
+            {
+                title: "iPhone 12",
+                description: "Nuevo, 128GB, color negro",
+                image: "https://images.pexels.com/photos/6078120/pexels-photo-6078120.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "telefonos@ejemplo.com",
+                whatsapp: "5491234567893",
+                category: "telefonos"
+            }
+        ];
+
+        // Renderizar publicaciones
+        function renderPublications(filteredPublications) {
+        const container = document.getElementById('publications');
+        container.innerHTML = ''; // Clear previous results
+        filteredPublications.forEach(pub => {
+            const card = document.createElement('div');
+            card.className = 'publication-card';
+
+            // Crear URL de Gmail con parámetros predefinidos
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${pub.email}&su=Consulta sobre: ${pub.title}&body=Hola, me interesa el producto que publicaste en Tilisarao Market.`;
+
+            card.innerHTML = `
+            <img src="${pub.image}" alt="${pub.title}" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title">${pub.title}</h3>
+                <p class="card-description">${pub.description}</p>
+                <div class="card-contact">
+                <a href="${gmailUrl}" class="contact-link" target="_blank">
+                    <i class="fas fa-envelope"></i>
+                    Contactar por Gmail
+                </a>
+                <a href="https://wa.me/${pub.whatsapp}" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i>
+                    Contactar por WhatsApp
+                </a>
+                </div>
+            </div>
+            `;
+            // If you have modal functionality, attach event listeners here.
+            const image = card.querySelector('.card-image');
+            image.addEventListener('click', () => openModal(pub.image));
+            container.appendChild(card);
+        });
+        }
+        // Filtrar publicaciones
+        function filterPublications(query, category) {
+            return publications.filter(pub => {
+                const matchesQuery = pub.title.toLowerCase().includes(query.toLowerCase());
+                const matchesCategory = category === 'all' || pub.category === category;
+                return matchesQuery && matchesCategory;
+            });
+        }
+
+        // Modal de imágenes
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModalHandler() {
+            modal.classList.remove('active');
+        }
+
+        closeModal.addEventListener('click', closeModalHandler);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModalHandler();
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+         // Función de filtrado mejorada con manejo de casos
+    function filterPublications(query, category) {
+        const queryTrimmed = query.trim().toLowerCase();
+        return publications.filter(pub => {
+            // 1. Búsqueda insensible a mayúsculas y espacios
+            const titleMatch = pub.title.toLowerCase().includes(queryTrimmed);
+            
+            // 2. Comparación exacta de categoría con normalización
+            const categoryMatch = category.toLowerCase() === 'all' || 
+                                pub.category.toLowerCase() === category.toLowerCase();
+            
+            // 3. Combinación lógica de ambos filtros
+            return queryTrimmed ? (titleMatch && categoryMatch) : categoryMatch;
+        });
+    }
+
+        // Inicialización con carga inicial y event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = searchForm.querySelector('[name="query"]');
+            const categorySelect = searchForm.querySelector('[name="category"]');
+
+            // Cargar todas las publicaciones al inicio
+            renderPublications(publications);
+
+            // Evento de búsqueda
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const filtered = filterPublications(searchInput.value, categorySelect.value);
+                renderPublications(filtered);
+            });
+
+            // Evento para resetear filtros
+            categorySelect.addEventListener('change', () => {
+                if (categorySelect.value === 'all') {
+                    searchInput.value = '';
+                    renderPublications(publications);
+                }
+            });
+        });
+    </script>
