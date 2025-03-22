@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concarán Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --background: #f8fafc;
+            --text: #1e293b;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        /* Agregado para evitar scroll horizontal */
+        html, body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* Header y Navegación */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 4rem;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /*************************************************************
+        *    SECCIÓN ESPECIAL: San Luis Marketplaces (estilos mejorados)
+        *************************************************************/
+        .marketplaces-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            background: linear-gradient(120deg, #FFEFBA 0%, #FFFFFF 100%);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .marketplaces-section::before,
+        .marketplaces-section::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(37, 99, 235, 0.1);
+            z-index: 0;
+            filter: blur(30px);
+        }
+
+        .marketplaces-section::before {
+            top: -50px;
+            left: -50px;
+        }
+        .marketplaces-section::after {
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .marketplaces-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .marketplaces-section p {
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .special-button {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .special-button:hover {
+            transform: translateY(-3px);
+            background-color: #f08a00; /* Un poco más oscuro que --accent */
+        }
+
+        /* Grid de Publicaciones */
+        .publications-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .publication-card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .publication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .card-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-link i {
+            font-size: 1.1rem;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            margin: 2rem;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -1rem;
+            right: -1rem;
+            background: var(--white);
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: background-color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background-color: var(--gray-100);
+        }
+
+        /* Formulario de Contacto */
+        .contact-section {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .submit-button {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Sección Trabaja con Nosotros */
+        .trabaja-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .trabaja-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .trabaja-section p {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text);
+            color: var(--white);
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .publications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 1rem;
+            }
+
+            /* Ajuste chat en pantallas pequeñas */
+            .chat-window {
+                width: 90% !important;
+                right: 5%;
+                left: auto;
+            }
+        }
+
+        /* Search Container */
+        .search-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-container form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-container input[type="text"],
+        .search-container select {
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            flex: 1;
+        }
+
+        .search-container input[type="text"]:focus,
+        .search-container select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-container button[type="submit"] {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-container button[type="submit"]:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Commerce Cards */
+        .commerce-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .commerce-card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .commerce-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .commerce-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .commerce-content {
+            padding: 1.5rem;
+        }
+
+        .commerce-title {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .commerce-button {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .commerce-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /**************************************************
+         * Chat flotante (Simulado). 
+         **************************************************/
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            border-radius: 1rem;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 3000;
+        }
+        .chat-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 0.75rem;
+            overflow-y: auto;
+        }
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+            border-top: 1px solid var(--gray-300);
+            padding: 0.5rem;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.25rem;
+            font-size: 1rem;
+        }
+        .chat-input button {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+        .chat-message-bubble {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            line-height: 1.3;
+            max-width: 80%;
+            clear: both;
+        }
+        .user-message {
+            background-color: var(--accent);
+            color: var(--white);
+            float: right;
+            text-align: right;
+        }
+        .ai-message {
+            background-color: var(--gray-100);
+            float: left;
+            color: var(--text);
+        }
+        /* Estilos para M84 Gaming Banner */
+        .m84-banner-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .m84-banner-section h2 {
+            color: var(--text);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .banner-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease;
+        }
+
+        .banner-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .banner-link {
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .banner {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a1a1a, #333333);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.1;
+        }
+
+        .banner-title {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideIn 1s ease-out;
+            color: #00ff00;
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            animation: slideIn 1s ease-out 0.3s backwards;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner .cta-button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background-color: #00ff00;
+            color: #000000;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            animation: bounceIn 1s ease-out 0.6s backwards;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-link:hover .cta-button {
+            background-color: #00cc00;
+            transform: scale(1.05);
+        }
+
+        .tech-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animaciones */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive adjustments */
+        /* Modificación de los estilos del banner para dispositivos móviles */
+        @media (max-width: 768px) {
+            .m84-banner-section {
+                margin: 2rem auto;
+            }
+
+            .banner-container {
+                height: 320px; /* Aumentado para dar más espacio al contenido */
+            }
+
+            .banner-title {
+                font-size: 2em;
+                margin-bottom: 15px; /* Reducido para ahorrar espacio vertical */
+            }
+
+            .banner-subtitle {
+                font-size: 1.2em;
+                margin-bottom: 20px; /* Reducido de 30px */
+            }
+
+            .banner .cta-button {
+                padding: 10px 20px; /* Reducido de 12px 30px */
+                font-size: 0.9em;
+                white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
+                max-width: 90%; /* Limita el ancho máximo */
+                overflow: hidden; /* Oculta el contenido que excede */
+                text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es demasiado largo */
+                display: inline-block; /* Asegura que el botón se comporte como un bloque en línea */
+            }
+
+            .tech-icon {
+                font-size: 30px;
+                margin-bottom: 10px; /* Reducido de 20px */
+            }
+        }
+
+        /* Ajustes adicionales para pantallas muy pequeñas */
+        @media (max-width: 480px) {
+            .banner-container {
+                height: 300px; /* Aumentado ligeramente para dar más espacio */
+            }
+
+            .banner-title {
+                font-size: 1.6em;
+                margin-bottom: 10px; /* Reducido para ahorrar espacio vertical */
+            }
+
+            .banner-subtitle {
+                font-size: 0.9em;
+                margin-bottom: 15px;
+            }
+
+            .banner .cta-button {
+                padding: 8px 16px;
+                font-size: 0.85em;
+                max-width: 80%; /* Más estrecho para pantallas muy pequeñas */
+                margin: 0 auto; /* Centrar el botón */
+            }
+            
+            /* Reducir el espacio vertical entre elementos */
+            .tech-icon {
+                margin-bottom: 5px;
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Concarán Market</a>
+            <div class="nav-links">
+                <a href="#publications">Publicaciones</a>
+                <a href="#contact">Contacto</a>
+                <a href="#trabaja">Trabaja con Nosotros</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Compra y vende en Concarán</h1>
+            <p>La manera más fácil de conectar compradores y vendedores en nuestra comunidad</p>
+            <a href="#contact" class="cta-button">Publicar Ahora</a>
+        </div>
+    </section>
+
+    <!-- Sección Especial: San Luis Marketplaces -->
+    <section id="san-luis-marketplaces" class="marketplaces-section">
+        <h2>Conoce todos los Marketplaces de San Luis</h2>
+        <p>Navega por los diferentes Marketplaces de la provincia en un solo lugar.</p>
+        <a
+            href="https://sanluismarket.github.io/San-Luis-Marketplaces/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="special-button"
+        >
+            Visitar San Luis Marketplaces
+        </a>
+    </section>
+
+    <!-- Sección M84 Gaming Banner -->
+    <section class="m84-banner-section">
+        <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
+            <h2>Tienda Destacada</h2>
+        </div>
+        <div class="banner-container">
+            <a href="https://www.m84x-hardware.com.ar/" class="banner-link" target="_blank" rel="noopener noreferrer">
+                <div class="banner">
+                    <div class="tech-icon">⚡</div>
+                    <h1 class="banner-title">M84Gaming</h1>
+                    <p class="banner-subtitle">Tu Destino Tecnológico de Confianza</p>
+                    <div class="cta-button">INGRESAR A LA TIENDA</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Sección de Comercios -->
+    <section id="comercios" class="commerce-section">
+        <h2>Comercios</h2>
+        <div class="commerce-grid">
+            <!-- Supermercado -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/264547/pexels-photo-264547.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Supermercado" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Supermercados</h3>
+                    <a href="https://tilisaraomarket.github.io/Supermercados/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Farmacia -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Farmacia" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Farmacias</h3>
+                    <a href="https://tilisaraomarket.github.io/Farmacias/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Ferretería -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/1797428/pexels-photo-1797428.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Ferretería" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Ferreterías</h3>
+                    <a href="https://tilisaraomarket.github.io/Ferreterias/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Restaurante -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Restaurante" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="commerce-title">Restaurantes</h3>
+                    <a href="https://tilisaraomarket.github.io/Restaurantes/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+
+            <!-- Profesionales -->
+            <div class="commerce-card">
+                <img src="https://images.pexels.com/photos/3184307/pexels-photo-3184307.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    alt="Profesionales" 
+                    class="commerce-image">
+                <div class="commerce-content">
+                    <h3 class="Profesionales-title">Profesionales</h3>
+                    <a href="https://tilisaraomarket.github.io/Profesionales/" class="commerce-button">Entrar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Web Webdev Solutions Banner -->
+    <section class="m84-banner-section">
+        <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
+            <h2>Servicios de Desarrollo Web</h2>
+        </div>
+        <div class="banner-container">
+            <a href="https://tilisaraomarket.github.io/WebDev-Solutions/" class="banner-link" target="_blank" rel="noopener noreferrer">
+                <div class="banner" style="background: linear-gradient(45deg, #2563eb, #1e40af);">
+                    <div class="tech-icon">
+                        <i class="fas fa-code" style="color: #38bdf8;"></i>
+                    </div>
+                    <h1 class="banner-title">Web Webdev Solutions</h1>
+                    <p class="banner-subtitle">Transformamos Ideas en Experiencias Digitales</p>
+                    <div class="cta-button">EXPLORA NUESTROS SERVICIOS</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Search Container -->
+    <div class="search-container">
+        <form id="searchForm">
+            <input type="text" name="query" placeholder="Buscar..." required>
+            <select name="category">
+                <option value="all">Todas las Categorías</option>
+                <option value="vehiculos">Vehículos</option>
+                <option value="inmuebles">Inmuebles</option>
+                <option value="telefonos">Teléfonos</option>
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <!-- Publicaciones -->
+    <section id="publications" class="publications-grid">
+        <!-- Las publicaciones se generarán dinámicamente aquí -->
+    </section>
+
+    <!-- Formulario de Contacto -->
+    <section id="contact" class="contact-section">
+        <h2>Publicar un Producto</h2>
+        <form class="contact-form" action="https://formspree.io/f/mvgzqkpv" method="POST">
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Descripción del Producto</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Enviar</button>
+        </form>
+    </section>
+
+    <!-- Sección Trabaja con Nosotros -->
+    <section id="trabaja" class="trabaja-section">
+        <h2>Trabaja con Nosotros</h2>
+        <p>En esta sección, buscaremos vendedores de páginas Web. Únete a nuestro equipo y haz crecer tu negocio con nosotros.</p>
+        <!-- Nuevo botón para acceder a la sección de trabajo -->
+        <a href="trabaja-con-nosotros.html" class="cta-button">Acceder</a>
+    </section>
+
+    <!-- Modal para imágenes -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="" alt="Imagen ampliada" class="modal-image" id="modalImage">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Concarán Market. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botón flotante para el chat -->
+    <button class="chat-button" id="openChatBtn">💬</button>
+    
+    <!-- Ventana de chat -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Chat Marketplace Concarán</span>
+            <button id="closeChatBtn" style="background:none; border:none; color:#fff; font-weight:bold; cursor:pointer;">X</button>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input">
+            <input id="chatInput" type="text" placeholder="Escribe un número o mensaje...">
+            <button id="sendBtn">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo
+        const publications = [
+            {
+                title: "Toyota Corolla 2020",
+                description: "Excelente estado, único dueño, 45,000 km",
+                image: "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "vendedor@ejemplo.com",
+                whatsapp: "5491234567890",
+                category: "vehiculos"
+            },
+            {
+                title: "Casa en el Centro",
+                description: "3 dormitorios, 2 baños, garage, patio amplio",
+                image: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "inmobiliaria@ejemplo.com",
+                whatsapp: "5491234567891",
+                category: "inmuebles"
+            },
+            {
+                title: "Moto Honda CBR 600",
+                description: "2021, 12,000 km, service al día, excelente estado",
+                image: "https://images.pexels.com/photos/2393816/pexels-photo-2393816.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "motos@ejemplo.com",
+                whatsapp: "5491234567892",
+                category: "vehiculos"
+            },
+            {
+                title: "iPhone 12",
+                description: "Nuevo, 128GB, color negro",
+                image: "https://images.pexels.com/photos/6078120/pexels-photo-6078120.jpeg?auto=compress&cs=tinysrgb&w=800",
+                email: "telefonos@ejemplo.com",
+                whatsapp: "5491234567893",
+                category: "telefonos"
+            }
+        ];
+
+        // Renderizar publicaciones
+        function renderPublications(filteredPublications) {
+            const container = document.getElementById('publications');
+            container.innerHTML = '';
+            filteredPublications.forEach(pub => {
+                const card = document.createElement('div');
+                card.className = 'publication-card';
+
+                // Crear URL de Gmail con parámetros predefinidos
+                const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${pub.email}&su=Consulta sobre: ${encodeURIComponent(pub.title)}&body=Hola, me interesa el producto que publicaste en Tilisarao Market.`;
+                card.innerHTML = `
+                    <img src="${pub.image}" alt="${pub.title}" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">${pub.title}</h3>
+                        <p class="card-description">${pub.description}</p>
+                        <div class="card-contact">
+                            <a href="${gmailUrl}" class="contact-link" target="_blank">
+                                <i class="fas fa-envelope"></i>
+                                Contactar por Gmail
+                            </a>
+                            <a href="https://wa.me/${pub.whatsapp}" target="_blank" class="contact-link">
+                                <i class="fab fa-whatsapp"></i>
+                                Contactar por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                `;
+                const image = card.querySelector('.card-image');
+                image.addEventListener('click', () => openModal(pub.image));
+                container.appendChild(card);
+            });
+        }
+
+        // Función de filtrado (con manejo de casos)
+        function filterPublications(query, category) {
+            const queryTrimmed = query.trim().toLowerCase();
+            return publications.filter(pub => {
+                const titleMatch = pub.title.toLowerCase().includes(queryTrimmed);
+                const categoryMatch = category.toLowerCase() === 'all' ||
+                                      pub.category.toLowerCase() === category.toLowerCase();
+
+                return queryTrimmed ? (titleMatch && categoryMatch) : categoryMatch;
+            });
+        }
+
+        // Modal de imágenes
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModalHandler() {
+            modal.classList.remove('active');
+        }
+
+        closeModal.addEventListener('click', closeModalHandler);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModalHandler();
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Carga inicial y event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = searchForm.querySelector('[name="query"]');
+            const categorySelect = searchForm.querySelector('[name="category"]');
+
+            // Cargar todas las publicaciones al inicio
+            renderPublications(publications);
+
+            // Evento de búsqueda
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const filtered = filterPublications(searchInput.value, categorySelect.value);
+                renderPublications(filtered);
+            });
+
+            // Evento para resetear filtros (si el usuario selecciona 'all')
+            categorySelect.addEventListener('change', () => {
+                if (categorySelect.value === 'all') {
+                    searchInput.value = '';
+                    renderPublications(publications);
+                }
+            });
+        });
+
+        // ------------------------------------------------------
+        // LÓGICA DEL CHAT BOOT
+        // ------------------------------------------------------
+        const chatResponses = {
+            initial: "Hola, soy un asistente virtual. Elige una opción:\n" +
+                    "1️⃣ Publicar sitio web gratis\n" +
+                    "2️⃣ Crear sitio web personalizado\n" +
+                    "3️⃣ Publicar productos/servicios\n" +
+                    "4️⃣ Consultar estado de publicación",
+
+            option1: {
+                main: "Para publicar tu sitio web gratuitamente, necesitarás:\n\n" +
+                    "A) Enlace de tu sitio web\n" +
+                    "B) Logo o imagen representativa (opcional)\n" +
+                    "C) Breve descripción\n\n" +
+                    "Por favor, escribe tu email para enviarte las instrucciones:",
+                emailSent: "¡Perfecto! Te enviaremos las instrucciones detalladas a {email}.\n" +
+                        "Por favor revisa tu bandeja de entrada en unos minutos."
+            },
+
+            option2: {
+                main: "Para crear tu sitio web personalizado:\n\n" +
+                    "1. Precios desde $50 USD\n" +
+                    "2. Incluye:\n" +
+                    "   - Diseño responsive\n" +
+                    "   - Hosting por 1 año\n" +
+                    "   - Dominio gratuito\n" +
+                    "   - Soporte técnico\n\n" +
+                    "Por favor, escribe tu email para recibir más información:",
+                emailSent: "¡Gracias! Te hemos enviado la información detallada a {email}."
+            },
+
+            option3: {
+                main: "Para publicar productos o servicios, elige categoría:\n\n" +
+                    "3A) Vehículos\n" +
+                    "3B) Inmuebles\n" +
+                    "3C) Tecnología\n" +
+                    "3D) Servicios profesionales",
+                
+                "3a": "Has seleccionado Vehículos. Por favor incluye:\n" +
+                    "- Marca y modelo\n" +
+                    "- Año\n" +
+                    "- Kilometraje\n" +
+                    "- Precio\n" +
+                    "- Fotos del vehículo\n\n" +
+                    "Escribe tu email para recibir el formulario:",
+
+                "3b": "Has seleccionado Inmuebles. Por favor incluye:\n" +
+                    "- Tipo de propiedad\n" +
+                    "- Ubicación\n" +
+                    "- Metros cuadrados\n" +
+                    "- Cantidad de ambientes\n" +
+                    "- Precio\n\n" +
+                    "Escribe tu email para recibir el formulario:",
+
+                "3c": "Has seleccionado Tecnología. Por favor incluye:\n" +
+                    "- Tipo de producto\n" +
+                    "- Marca y modelo\n" +
+                    "- Estado (nuevo/usado)\n" +
+                    "- Especificaciones técnicas\n" +
+                    "- Precio\n\n" +
+                    "Escribe tu email para recibir el formulario:",
+
+                "3d": "Has seleccionado Servicios Profesionales. Por favor incluye:\n" +
+                    "- Tipo de servicio\n" +
+                    "- Descripción detallada\n" +
+                    "- Área de cobertura\n" +
+                    "- Horarios de atención\n" +
+                    "- Tarifas\n\n" +
+                    "Escribe tu email para recibir el formulario:",
+
+                emailSent: "¡Listo! Te hemos enviado el formulario específico a {email}."
+            },
+
+            option4: {
+                main: "Para consultar el estado de tu publicación,\n" +
+                    "por favor escribe tu email:",
+                emailSent: "¡Gracias! Hemos enviado el estado actual a {email}.",
+                invalidEmail: "El email no parece ser válido. Por favor, intenta nuevamente."
+            }
+        };
+
+        // Variables de estado
+        let awaitingEmail = false;
+        let currentOption = null;
+        let selectedSubOption = null;
+
+        // Validación de email
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Envío de email usando Formspree
+        async function sendFormspreeEmail(email, option, subOption = null) {
+            let subject, message;
+
+            if (subOption) {
+                const categories = {
+                    '3a': 'Vehículos',
+                    '3b': 'Inmuebles',
+                    '3c': 'Tecnología',
+                    '3d': 'Servicios Profesionales'
+                };
+                
+                subject = `Formulario para publicación - ${categories[subOption]} - Tilisarao Market`;
+                message = `Solicitud de formulario para publicación\nEmail: ${email}\nCategoría: ${categories[subOption]}`;
+            } else {
+                const templates = {
+                    '1': {
+                        subject: 'Instrucciones para publicar sitio web - Tilisarao Market',
+                        message: `Solicitud de publicación de sitio web\nEmail: ${email}\nOpción: Publicar sitio web gratis`
+                    },
+                    '2': {
+                        subject: 'Información sitio web personalizado - Tilisarao Market',
+                        message: `Solicitud de sitio web personalizado\nEmail: ${email}\nOpción: Crear sitio web`
+                    },
+                    '4': {
+                        subject: 'Consulta estado de publicación - Tilisarao Market',
+                        message: `Consulta de estado\nEmail: ${email}\nOpción: Consultar estado`
+                    }
+                };
+
+                const template = templates[option];
+                subject = template.subject;
+                message = template.message;
+            }
+
+            try {
+                const response = await fetch("https://formspree.io/f/mvgzqkpv", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        subject: subject,
+                        message: message
+                    })
+                });
+
+                return response.ok;
+            } catch (error) {
+                console.error('Error sending email:', error);
+                return false;
+            }
+        }
+
+        // Manejador de respuestas del chat
+        async function handleChatResponse(userText) {
+            const text = userText.trim().toLowerCase();
+
+            // Si estamos esperando un email
+            if (awaitingEmail) {
+                if (isValidEmail(text)) {
+                    const emailSent = await sendFormspreeEmail(text, currentOption, selectedSubOption);
+                    awaitingEmail = false;
+                    
+                    if (emailSent) {
+                        const response = selectedSubOption ? 
+                            chatResponses.option3.emailSent.replace('{email}', text) :
+                            chatResponses[`option${currentOption}`].emailSent.replace('{email}', text);
+                        
+                        currentOption = null;
+                        selectedSubOption = null;
+                        return response;
+                    } else {
+                        return "Lo siento, hubo un error al procesar tu solicitud. Por favor, intenta más tarde.";
+                    }
+                } else {
+                    return chatResponses.option4.invalidEmail;
+                }
+            }
+
+            // Menú principal
+            if (!text || text === 'menu') {
+                awaitingEmail = false;
+                currentOption = null;
+                selectedSubOption = null;
+                return chatResponses.initial;
+            }
+
+            // Opciones principales
+            if (['1', '2', '4'].includes(text)) {
+                awaitingEmail = true;
+                currentOption = text;
+                return chatResponses[`option${text}`].main;
+            }
+
+            // Opción 3 y sus submenús
+            if (text === '3') {
+                currentOption = '3';
+                return chatResponses.option3.main;
+            }
+
+            // Submenús de la opción 3
+            if (['3a', '3b', '3c', '3d'].includes(text)) {
+                selectedSubOption = text;
+                awaitingEmail = true;
+                return chatResponses.option3[text];
+            }
+
+            return "No entiendo esa opción. Escribe un número del 1 al 4 para ver las opciones disponibles, o 'menu' para ver el menú principal.";
+        }
+
+        // Inicialización y manejo de UI
+        document.addEventListener('DOMContentLoaded', () => {
+            const openChatBtn = document.getElementById('openChatBtn');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendBtn');
+
+            openChatBtn.addEventListener('click', () => {
+                chatWindow.style.display = 'flex';
+                addMessageBubble(chatResponses.initial, 'ai-message');
+            });
+
+            closeChatBtn.addEventListener('click', () => {
+                chatWindow.style.display = 'none';
+                awaitingEmail = false;
+                currentOption = null;
+                selectedSubOption = null;
+            });
+
+            sendBtn.addEventListener('click', async () => {
+                const userMessage = chatInput.value;
+                if (!userMessage) return;
+
+                addMessageBubble(userMessage, 'user-message');
+                chatInput.value = '';
+
+                const response = await handleChatResponse(userMessage);
+                addMessageBubble(response, 'ai-message');
+            });
+
+            function addMessageBubble(text, cssClass) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('chat-message-bubble', cssClass);
+                bubble.textContent = text;
+                chatMessages.appendChild(bubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
+</qodoArtifact>
