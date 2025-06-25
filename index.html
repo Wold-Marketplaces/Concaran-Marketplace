@@ -874,6 +874,117 @@
         .accessibility-banner .cta-button:hover {
             transform: translateY(-2px);
         }
+        /*================== COMPONENTE BANNER BASE ESCRITORIO DEL ABOGADO ==================*/
+        body{font-family:'Inter',sans-serif;background:#f1f5f9;margin:0;padding:2rem}
+        .market-banner {
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.12);
+        overflow: hidden;
+        transition: .3s transform, .3s box-shadow;
+        margin: 2.5rem auto;
+        max-width: 1200px;
+        }
+        .market-banner:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,.18);
+        }
+        .banner-wrap {
+        position: relative;
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+        padding: 2.5rem;
+        color: #fff;
+        background: none; /* Eliminado si no usas ::before */
+        }
+        .banner-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gradient, #2563eb);
+        opacity: .90;
+        z-index: 0;
+        }
+        .banner-wrap>* {
+        position: relative;
+        z-index: 1;
+        }
+        .banner-icon {
+        flex-shrink: 0;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        background: rgba(255,255,255,.25);
+        border-radius: 20px;
+        overflow: hidden;
+        }
+        .banner-body {
+        flex: 1;
+        }
+        .banner-body p {
+        margin: .75rem 0 1.5rem;
+        opacity: .9;
+        }
+        .features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem;
+        }
+        .features li {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        margin-bottom: .5rem;
+        }
+        .features i {
+        color: #fbbf24;
+        }
+        .cta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        }
+        .cta a {
+        text-decoration: none;
+        font-weight: 600;
+        padding: .75rem 1.5rem;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        transition: .3s;
+        }
+        .btn-primary {
+        background: #fbbf24;
+        color: #1e293b;
+        }
+        .btn-primary:hover {
+        background: #f59e0b;
+        }
+        .btn-secondary {
+        background: rgba(255,255,255,.25);
+        color: #fff;
+        }
+        .btn-secondary:hover {
+        background: rgba(255,255,255,.35);
+        }
+        /* Responsivo */
+        @media(max-width:768px){
+        .banner-wrap {
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem;
+        }
+        .banner-icon {
+            margin: 0 auto 1rem;
+        }
+        .cta {
+            justify-content: center;
+        }
+        }
     </style>
 </head>
 <body>
@@ -1000,6 +1111,31 @@
                     <a href="https://tilisaraomarket.github.io/Profesionales/" class="commerce-button">Entrar</a>
                 </div>
             </div>
+        </div>
+    </section>
+
+
+    <!-- ================= BANNER ESCRITORIO DEL ABOGADO ================= -->
+    <section class="market-banner" id="escritorio-abogado">
+        <div class="banner-wrap" style="--gradient:linear-gradient(135deg,rgba(30,64,175,.9) 0%, rgba(99,102,241,.9) 100%);">
+        <div class="banner-icon">
+            <img src="https://images.unsplash.com/photo-1521790797524-b2497295b8a0?auto=format&fit=crop&w=400&q=80" alt="Abogacía" style="width:100%;height:100%;border-radius:20px;object-fit:cover;box-shadow:0 4px 16px #0002;" />
+        </div>
+        <div class="banner-body">
+            <h2>Escritorio del Abogado</h2>
+            <p>Gestiona casos, tareas y documentos jurídicos en una sola plataforma. Optimiza tu estudio con herramientas diseñadas para profesionales del derecho.</p>
+            <ul class="features">
+            <li><i class="fas fa-check"></i> Panel unificado de <strong>casos y clientes</strong></li>
+            <li><i class="fas fa-check"></i> Generación de <strong>telegramas y documentos</strong></li>
+            <li><i class="fas fa-check"></i> Seguimiento de <strong>tareas y plazos</strong></li>
+            <li><i class="fas fa-check"></i> Exporta e importa datos en <strong>JSON</strong></li>
+            <li><i class="fas fa-check"></i> Notificaciones automáticas y KPI en tiempo real</li>
+            </ul>
+            <div class="cta">
+            <a href="https://wold-marketplaces.github.io/Escritorio-del-Abogado/" class="btn-primary"><i class="fas fa-play"></i> Probar ahora</a>
+            <a href="index_pro.html" class="btn-secondary">Ver versión Pro</a>
+            </div>
+        </div>
         </div>
     </section>
 
