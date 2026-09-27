@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis publicaciones | Concaran Market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --text: #1e293b;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: var(--text);
+            margin: 0;
+            padding: 0 1rem 4rem;
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 2rem;
+        }
+
+        .topbar h1 {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .topbar .usuario {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .topbar .acciones {
+            margin-left: auto;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 1.1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+            background: var(--gray-100);
+            color: var(--text);
+        }
+
+        .btn:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-primario {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primario:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-peligro {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .btn-peligro:hover {
+            background: #fee2e2;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: var(--gray-200);
+        }
+
+        .card .cuerpo {
+            padding: 1rem 1.25rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+
+        .card .precio {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card .meta {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.72rem;
+            padding: 0.15rem 0.55rem;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .badge-oculto {
+            background: var(--gray-100);
+            color: var(--secondary);
+        }
+
+        .card .botones {
+            margin-top: auto;
+            padding-top: 0.75rem;
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .card .botones .btn {
+            padding: 0.45rem 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        .vacio {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: var(--secondary);
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .vacio h2 {
+            color: var(--text);
+            margin: 0 0 0.5rem;
+        }
+
+        .aviso {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .aviso-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+        }
+
+        .aviso-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        .oculto-vista {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="topbar">
+            <h1>Mis publicaciones</h1>
+            <span class="usuario" id="usuario">...</span>
+            <div class="acciones">
+                <a href="index.html#contact" class="btn btn-primario">
+                    <i class="fas fa-plus"></i> Nueva publicación
+                </a>
+                <a href="index.html" class="btn">
+                    <i class="fas fa-store"></i> Ir al mercado
+                </a>
+                <button type="button" class="btn" id="btnSalir">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </div>
+
+        <div id="aviso" class="aviso aviso-info oculto-vista"></div>
+        <div id="grid" class="grid"></div>
+    </div>
+
+    <script src="js/supabase-config.js"></script>
+    <script src="js/tienda.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const $ = (id) => document.getElementById(id);
+            const PLACEHOLDER =
+                'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300">' +
+                    '<rect width="400" height="300" fill="#e2e8f0"/>' +
+                    '<text x="200" y="155" font-family="sans-serif" font-size="20" ' +
+                    'fill="#94a3b8" text-anchor="middle">Sin foto</text></svg>'
+                );
+
+            function aviso(texto, esError) {
+                const el = $('aviso');
+                if (!texto) { el.classList.add('oculto-vista'); return; }
+                el.textContent = texto;
+                el.className = 'aviso ' + (esError ? 'aviso-error' : 'aviso-info');
+            }
+
+            function pintar(misProductos) {
+                const grid = $('grid');
+                grid.innerHTML = '';
+
+                if (!misProductos.length) {
+                    grid.innerHTML =
+                        '<div class="vacio" style="grid-column:1/-1;">' +
+                        '<h2>Todavía no publicaste nada</h2>' +
+                        '<p>Publicá tu primer producto y los compradores te van a escribir por WhatsApp.</p>' +
+                        '<a href="index.html#contact" class="btn btn-primario" style="margin-top:1rem;">' +
+                        '<i class="fas fa-plus"></i> Publicar mi primer producto</a></div>';
+                    return;
+                }
+
+                misProductos.forEach(p => {
+                    const wa = Tienda.linkWhatsApp(
+                        (p.perfiles && p.perfiles.telefono) || '', p.titulo
+                    );
+                    const oculto = p.estado !== 'publicado';
+
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML =
+                        '<img src="' + Tienda.escapeHtml(p.foto_url || PLACEHOLDER) + '" alt="' +
+                        Tienda.escapeHtml(p.titulo) + '">' +
+                        '<div class="cuerpo">' +
+                        (p.precio ? '<div class="precio">' + Tienda.escapeHtml(p.precio) + '</div>' : '') +
+                        '<h3>' + Tienda.escapeHtml(p.titulo) + '</h3>' +
+                        '<div class="meta">' +
+                        '<span class="badge">' + Tienda.escapeHtml(Tienda.etiquetaCategoria(p.categoria)) + '</span>' +
+                        '<span class="badge ' + (oculto ? 'badge-oculto' : '') + '">' +
+                        (oculto ? 'Oculta' : 'Visible') + '</span>' +
+                        '</div>' +
+                        '<div class="botones">' +
+                        (wa ? '<a href="' + wa + '" target="_blank" rel="noopener noreferrer" class="btn">' +
+                              '<i class="fab fa-whatsapp"></i> Probar link</a>' : '') +
+                        '<button type="button" class="btn" data-accion="estado" data-id="' + p.id + '">' +
+                        (oculto ? 'Mostrar' : 'Ocultar') + '</button>' +
+                        '<button type="button" class="btn btn-peligro" data-accion="borrar" data-id="' + p.id + '">' +
+                        '<i class="fas fa-trash"></i></button>' +
+                        '</div></div>';
+
+                    grid.appendChild(card);
+                });
+            }
+
+            async function cargar() {
+                if (!Tienda.configOk()) {
+                    aviso('Falta completar js/supabase-config.js con la URL y la anon key de tu proyecto.', true);
+                    $('grid').innerHTML = '';
+                    return;
+                }
+
+                const sesion = await Tienda.restaurarSesion();
+                if (!sesion) {
+                    aviso('Tenés que iniciar sesión para ver tus publicaciones. <a href="index.html#contact">Ir a iniciar sesión</a>.', true);
+                    $('grid').innerHTML = '';
+                    return;
+                }
+
+                $('usuario').textContent = sesion.user.email || '';
+                aviso('');
+
+                try {
+                    const productos = await Tienda.listarMisProductos();
+                    pintar(productos);
+                } catch (e) {
+                    aviso(e.mensajeAmigable || e.message, true);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                cargar();
+
+                $('btnSalir').addEventListener('click', async () => {
+                    await Tienda.cerrarSesion();
+                    window.location.href = 'index.html';
+                });
+
+                $('grid').addEventListener('click', async (e) => {
+                    const btn = e.target.closest('button[data-accion]');
+                    if (!btn) return;
+                    const id = btn.dataset.id;
+                    const accion = btn.dataset.accion;
+                    btn.disabled = true;
+
+                    try {
+                        if (accion === 'estado') {
+                            const productos = await Tienda.listarMisProductos();
+                            const p = productos.find(x => x.id === id);
+                            await Tienda.alternarEstado(id, p ? p.estado : 'publicado');
+                        } else if (accion === 'borrar') {
+                            if (!confirm('¿Borrar esta publicación? Esta acción no se puede deshacer.')) {
+                                btn.disabled = false;
+                                return;
+                            }
+                            await Tienda.borrarProducto(id);
+                        }
+                        const productos = await Tienda.listarMisProductos();
+                        pintar(productos);
+                    } catch (err) {
+                        aviso(err.mensajeAmigable || err.message, true);
+                        btn.disabled = false;
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
