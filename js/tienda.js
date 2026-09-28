@@ -437,7 +437,8 @@
     img_calidad: 0.80,
     img_peso_max_kb: 200,
     foto_peso_max_mb: 5,
-    productos_por_usuario: 40
+    productos_por_usuario: 40,
+    descripcion_max_caracteres: 300
   };
 
   let ajustesCargados = null;
@@ -453,7 +454,7 @@
          'productos_por_usuario'].forEach(k => {
           if (f[k] !== null && f[k] !== undefined) ajustesCargados[k] = f[k];
         });
-        ['img_calidad', 'foto_peso_max_mb'].forEach(k => {
+        ['img_calidad', 'foto_peso_max_mb', 'descripcion_max_caracteres'].forEach(k => {
           const n = Number(f[k]);
           if (!Number.isNaN(n) && n > 0) ajustesCargados[k] = n;
         });
@@ -462,6 +463,21 @@
       console.warn('No se pudieron leer los ajustes, uso los valores por defecto:', e.message);
     }
     return ajustesCargados;
+  }
+
+  /**
+   * Maximo de caracteres de la descripcion. Sale de config_sistema (Supabase)
+   * asi se cambia desde el dashboard sin tocar codigo. Si el adjustment todavia
+   * no se leyo, usa el valor por defecto de arriba.
+   */
+  function maxDescripcion() {
+    const n = Number(ajustesCargados && ajustesCargados.descripcion_max_caracteres);
+    return (!Number.isNaN(n) && n > 0) ? Math.floor(n) : AJUSTES_POR_DEFECTO.descripcion_max_caracteres;
+  }
+
+  /** Recorta la descripcion al limite. Nunca corta mas de lo necesario. */
+  function ajustarDescripcion(texto) {
+    return String(texto == null ? '' : texto).trim().slice(0, maxDescripcion());
   }
 
   function validarFoto(archivo) {
@@ -662,10 +678,13 @@
     if (!titulo) throw new Error('Poné un título para tu publicación.');
     if (!esCategoriaValida(datos.categoria)) throw new Error('Elegí una categoría válida.');
 
+    const descripcion = ajustarDescripcion(datos.descripcion);
+    if (!descripcion) throw new Error('Escribí una descripción.');
+
     const cuerpo = {
       user_id: u.id,
       titulo: titulo.slice(0, 120),
-      descripcion: String(datos.descripcion || '').trim().slice(0, 2000),
+      descripcion: descripcion,
       precio: String(datos.precio || '').trim().slice(0, 40),
       categoria: datos.categoria,
       foto_url: datos.foto_url || null,
@@ -684,7 +703,7 @@
     if (!u) throw new Error('No hay sesión');
     const patch = {};
     if (datos.titulo !== undefined) patch.titulo = String(datos.titulo).trim().slice(0, 120);
-    if (datos.descripcion !== undefined) patch.descripcion = String(datos.descripcion).trim().slice(0, 2000);
+    if (datos.descripcion !== undefined) patch.descripcion = ajustarDescripcion(datos.descripcion);
     if (datos.precio !== undefined) patch.precio = String(datos.precio).trim().slice(0, 40);
     if (datos.categoria !== undefined && esCategoriaValida(datos.categoria)) patch.categoria = datos.categoria;
     if (datos.foto_url !== undefined) patch.foto_url = datos.foto_url;
@@ -737,6 +756,7 @@
     asegurarPerfil: asegurarPerfil,
 
     ajustes: ajustes,
+    maxDescripcion: maxDescripcion,
     validarFoto: validarFoto,
     comprimirFoto: comprimirFoto,
     subirFoto: subirFoto,
